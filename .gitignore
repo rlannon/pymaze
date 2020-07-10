@@ -1,0 +1,5 @@
+doc/*
+solutions/*
+.vscode/*
+src/.__pycache__/*
+*.pyc
