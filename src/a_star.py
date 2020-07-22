@@ -1,6 +1,10 @@
+# pymaze
+# A* Implementation
+
 from FibonacciHeap import FibHeap   # for our Fibonacci heap, we will use Mike Pound's implementation
 from priority_queue import HeapPQ  # also from Dr. Pound
 from collections import deque
+import maze
 
 
 def get_distance(a, b):
@@ -10,15 +14,15 @@ def get_distance(a, b):
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
-def a_star(maze):
+def a_star(to_solve):
     """Uses the A* search algorithm (variant of Dijkstra's algorithm) to solve a maze, 'maze'.
     Note that due to the way some mazes are structured -- very dense mazes with short paths -- A* may not outperform
     a breadth-first search, and in fact may be almost identical in its operation with extra computational overhead.
     However, this depends on the variety of maze supplied"""
 
     # get our start and end nodes
-    start = maze.get_start()
-    end = maze.get_end()
+    start = to_solve.get_start()
+    end = to_solve.get_end()
 
     # we will use the start and end positions so frequently that it is worth having variables for them; calling a
     # function is not free, so this trades off a little memory in exchange for a little better performance
@@ -71,8 +75,8 @@ def a_star(maze):
         # otherwise, check each unvisited child node, as in the breadth-first search
         else:
             # get our node's neighbors, and check each of them
-            neighbors = [current.neighbors["North"], current.neighbors["South"], current.neighbors["East"],
-                         current.neighbors["West"]]
+            neighbors = [current.neighbors[maze.Direction.NORTH], current.neighbors[maze.Direction.SOUTH],
+                        current.neighbors[maze.Direction.EAST], current.neighbors[maze.Direction.WEST]]
 
             for child in neighbors:
                 # if there is a neighbor at that position that we have not visited check it; otherwise, continue on

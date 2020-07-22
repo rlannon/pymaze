@@ -1,12 +1,13 @@
-"""Implementation of the breadth-first search algorithm for use with a Maze object."""
+# pymaze
+# Implementation of BFS
 
 from collections import deque
+import maze
 
-
-def breadth_first_search(maze):
+def breadth_first_search(to_solve):
     """Solves a maze (from Maze object 'maze') using a breadth-first search"""
-    start = maze.get_start()
-    end = maze.get_end()
+    start = to_solve.get_start()
+    end = to_solve.get_end()
 
     queue = deque([start])
 
@@ -30,8 +31,8 @@ def breadth_first_search(maze):
         # otherwise, we need to add the children to the queue
         else:
             # create the list of our neighbor nodes
-            neighbors = [current.neighbors["North"], current.neighbors["South"], current.neighbors["East"],
-                         current.neighbors["West"]]
+            neighbors = [current.neighbors[maze.Direction.NORTH], current.neighbors[maze.Direction.SOUTH],
+                        current.neighbors[maze.Direction.EAST], current.neighbors[maze.Direction.WEST]]
 
             # for every node that exists, update the node that came before it (the current node) and add it to the queue
             for node in neighbors:

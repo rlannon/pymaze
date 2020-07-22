@@ -1,13 +1,17 @@
+# pymaze
+# Implementation of DFS
+
 from collections import deque
+import maze
 
 
-def depth_first_search(maze):
+def depth_first_search(to_solve):
     """Run a depth-first search on the maze object"""
 
     # set up the function like the others; however, this algorithm will be more similar to BFS than to A*
     # we will get the start and end nodes and use dictionaries to fetch previous nodes and visited nodes
-    start = maze.get_start()
-    end = maze.get_end()
+    start = to_solve.get_start()
+    end = to_solve.get_end()
 
     # like the other algorithms, use a dictionary to track which nodes have been visited
     visited = {}
@@ -29,8 +33,8 @@ def depth_first_search(maze):
             completed = True
         else:
             # get the node's children
-            neighbors = [current.neighbors["North"], current.neighbors["South"], current.neighbors["East"],
-                         current.neighbors["West"]]
+            neighbors = [current.neighbors[maze.Direction.NORTH], current.neighbors[maze.Direction.SOUTH],
+                        current.neighbors[maze.Direction.EAST], current.neighbors[maze.Direction.WEST]]
 
             # iterate through each child node, making sure we only operate on valid nodes that haven't been visited
             for child in neighbors:

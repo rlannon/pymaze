@@ -1,3 +1,28 @@
+# pymaze
+# Contains the object to contain our mazes
+
+from enum import Enum
+
+class Direction(Enum):
+    """ An enumerated type for the direction we are traveling
+    Ensure the directions work clockwise
+    """
+    NORTH = 1,
+    EAST = 2,
+    SOUTH = 3,
+    WEST = 4
+
+    def __str__(self):
+        if (self == self.NORTH):
+            return "North"
+        elif (self == self.SOUTH):
+            return "South"
+        elif (self == self.EAST):
+            return "East"
+        else:
+            return "West"
+
+
 class Node:
     """Node objects for our Maze"""
     def __init__(self, position):
@@ -5,7 +30,7 @@ class Node:
         self.position = position
 
         # Each node can have, at most, 4 neighbors -- a north, south, east, and west neighbor
-        self.neighbors = {"North": None, "South": None, "East": None, "West": None}
+        self.neighbors = {Direction.NORTH: None, Direction.SOUTH: None, Direction.EAST: None, Direction.WEST: None}
 
         # we must also track the parent node of the nodes we visit when we are solving the maze so we can construct
         # the path to the end
@@ -21,6 +46,9 @@ class Node:
     def get_position(self):
         """Returns a tuple containing the position of the node"""
         return self.position
+    
+    def has_neighbor(self, direction: Direction) -> bool:
+        return self.neighbors[direction] is not None
 
 
 class MazeException(Exception):
@@ -139,8 +167,8 @@ class Maze:
                         # if the west neighbor is white, we must have a node in that direction; it's in left_node
                         if self.is_white(west_neighbor):
                             if left_node is not None:
-                                left_node.neighbors["East"] = new_node
-                                new_node.neighbors["West"] = left_node
+                                left_node.neighbors[Direction.EAST] = new_node
+                                new_node.neighbors[Direction.WEST] = left_node
                             else:
                                 raise MazeException("Expected node to the west; could not find one!", (x, y))
 
@@ -153,8 +181,8 @@ class Maze:
                         if self.is_white(north_neighbor):
                             if top_nodes[x] is not None:    # todo: unnecessary check?
                                 t = top_nodes[x]
-                                t.neighbors["South"] = new_node
-                                new_node.neighbors["North"] = t
+                                t.neighbors[Direction.SOUTH] = new_node
+                                new_node.neighbors[Direction.NORTH] = t
                             else:
                                 raise MazeException("Expected node to the north; could not find one!", (x, y))
 
@@ -187,8 +215,8 @@ class Maze:
                 # the node to the end must be above it
                 if top_nodes[x] is not None:
                     t = top_nodes[x]
-                    t.neighbors["South"] = end_node
-                    end_node.neighbors["North"] = t
+                    t.neighbors[Direction.SOUTH] = end_node
+                    end_node.neighbors[Direction.NORTH] = t
                 else:
                     raise MazeException("No node found north of end position", (x, y))
 
