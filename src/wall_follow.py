@@ -38,7 +38,7 @@ def get_next_direction(current_direction: maze.Direction, node: maze.Node) -> ma
     
 
 
-def wall_follower(to_solve: maze.Maze):
+def wall_follower(to_solve: maze.Maze) -> list:
     """ Solves the maze with the right-hand rule
 
     The algorithm is pretty simple:

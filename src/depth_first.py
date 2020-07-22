@@ -5,7 +5,7 @@ from collections import deque
 import maze
 
 
-def depth_first_search(to_solve):
+def depth_first_search(to_solve: maze.Maze) -> list:
     """Run a depth-first search on the maze object"""
 
     # set up the function like the others; however, this algorithm will be more similar to BFS than to A*

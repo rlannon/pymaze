@@ -4,7 +4,7 @@
 from collections import deque
 import maze
 
-def breadth_first_search(to_solve):
+def breadth_first_search(to_solve: maze.Maze) -> list:
     """Solves a maze (from Maze object 'maze') using a breadth-first search"""
     start = to_solve.get_start()
     end = to_solve.get_end()

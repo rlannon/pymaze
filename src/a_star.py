@@ -7,14 +7,14 @@ from collections import deque
 import maze
 
 
-def get_distance(a, b):
+def get_distance(a: tuple, b: tuple) -> int:
     """Finds the Manhattan between two points, a and b, and returns it.
     The Manhattan distance is |x2 - x1| + |y2 - y1|  -- it is a measure of how many steps in the cardinal directions
     are needed to get between any two points in a grid. This is also called taxicab geometry."""
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
-def a_star(to_solve):
+def a_star(to_solve: maze.Maze) -> list:
     """Uses the A* search algorithm (variant of Dijkstra's algorithm) to solve a maze, 'maze'.
     Note that due to the way some mazes are structured -- very dense mazes with short paths -- A* may not outperform
     a breadth-first search, and in fact may be almost identical in its operation with extra computational overhead.
